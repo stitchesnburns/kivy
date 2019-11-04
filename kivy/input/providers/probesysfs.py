@@ -219,6 +219,13 @@ else:
                 Logger.debug('ProbeSysfs: found device: %s at %s' % (
                     device.name, device.device))
 
+                # dirty hack to ignore wacom devices, these devices does
+                #   not function very well when using hidinput as
+                #   provider.
+                if 'acom' in device.name:
+                    Logger.info('ProbeSysfs: Ignoring ' + device.name)
+                    continue
+
                 # must ignore ?
                 if self.match:
                     if self.use_regex:
