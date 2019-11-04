@@ -101,6 +101,10 @@ cdef class _WindowSDL2Storage:
         elif state == 'hidden':
             self.win_flags |= SDL_WINDOW_HIDDEN
 
+        # Make SDL respect KIVY_BCM_DISPMANX_LAYER
+        dispmanx_layer = environ.get('KIVY_BCM_DISPMANX_LAYER', '0')
+        SDL_SetHint(SDL_HINT_RPI_VIDEO_LAYER, dispmanx_layer)
+
         SDL_SetHint(SDL_HINT_ACCELEROMETER_AS_JOYSTICK, b'0')
 
         SDL_SetHintWithPriority(b'SDL_ANDROID_TRAP_BACK_BUTTON', b'1',
